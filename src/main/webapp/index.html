@@ -1,0 +1,85 @@
+<html>
+<head>
+    <!-- Bootstrap 文档: https://v3.bootcss.com/css/ -->
+    <!-- Vue 文档: https://cn.vuejs.org/v2/guide/ -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <title>Java API 搜索</title>
+    <style>
+        #app {
+            margin-left:50px;
+            margin-right:50px;
+        }
+        div button {
+            width:100%;
+        }
+        .row {
+            padding-top: 10px;
+        }
+        .col-md-5,.col-md-1 {
+            padding-left:2;
+            padding-right:2;
+        }
+        .title {
+            font-size: 22px;
+        }
+        .desc {
+            font-size: 18px;
+        }
+        .url {
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="row">
+        <img src="image/1.jpg" width="55px" height="60px" />
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="请输入关键字" v-model="query">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-success" v-on:click="search()">搜索</button>
+        </div>
+    </div>
+    <div class="row" v-for="result in results">
+        <!--用来存放结果-->
+        <div class="title"><a v-bind:href="result.clickUrl">{{result.title}}</a></div>
+        <div class="desc">{{result.Desc}}</div>
+        <div class="url">{{result.ShowUrl}}</div>
+    </div>
+</div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            query: "",
+            results: [ ]
+        },
+        methods: {
+            search() {
+                $.ajax({
+                    url:"/JavaAPI/search?query=" + this.query,
+                    type: "get",
+                    context: this,
+                    success: function(respData, status) {
+                        this.results = respData;
+                    }
+                })
+            },
+        }
+    })
+</script>
+</html>

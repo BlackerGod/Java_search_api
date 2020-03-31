@@ -1,0 +1,9 @@
+parser\Parser.class
+index\Index$Weight.class
+searcher\Searcher.class
+searcher\Searcher$1.class
+index\Index$1WordCnt.class
+index\Index.class
+common\DocInfo.class
+searcher\Result.class
+api\DocSearcherServlet.class
